@@ -10,6 +10,9 @@ namespace Dict_CS
     {
         static void Main(string[] args)
         {
+            Dictionary<string, string> D_rus_eng = new Dictionary<string, string>(); //русско - английский словарь
+
+
         }
     }
 }
