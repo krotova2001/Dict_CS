@@ -5,32 +5,46 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Dict_CS
 {
     class Program
     {
+        static void Show (Dict A) // служебная функция просмотра словаря
+        {
+            foreach (string key in A.core.Keys)
+            {
+                Console.WriteLine($"{key} - {A.core[key]}"); // перебрать все ключи и значения в словаре
+            }
+        }
+        
         static void Main(string[] args)
         {
-            Dictionary<string, string> D_rus_eng = new Dictionary<string, string>(); //русско - английский словарь
-            Dictionary<string, string> D_eng_deuch = new Dictionary<string, string>(); //англо-немецкий словарь
-        }
-        bool Dict_Load() // функция загрузки словаря
-        {
-            return false;
-        }
-        bool Dict_Save(Dictionary<string, string> D) // функция сохранения словаря
-        {
+            Dict R_A = new Dict(); //русско - английский словарь
+            Dict A_D; //англо-немецкий словарь
+            R_A.core.Add("Один", "One");
+            R_A.core.Add("Два", "Two");
+
+
+
             using (FileStream fs = new FileStream("D.json", FileMode.OpenOrCreate, FileAccess.ReadWrite))
             {
-                JsonSerializer.Serialize(fs, D);
+                JsonSerializer.Serialize(fs, R_A);
             }
-            return false;
-        }
-        bool Export(string s) // экспорт слова с переводом
-        {
-            return false;
+           
+            string buff = File.ReadAllText("D.json");
+            Dict A = JsonSerializer.Deserialize<Dict>(buff);
+            Show(A);
+
+            /*
+             
+            string fileName = "WeatherForecast.json"; 
+            string jsonString = JsonSerializer.Serialize(weatherForecast);
+            File.WriteAllText(fileName, jsonString);
+             */
 
         }
+
     }
 }

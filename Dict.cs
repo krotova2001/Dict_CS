@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO;
-using System.Text.Json;
 
 /// <summary>
 /// это класс самого словаря
@@ -14,18 +12,10 @@ namespace Dict_CS
 {
     class Dict
     {
-        public Dictionary <string, string> D;
-        public Dict()
+        public Dictionary <string, string> core { get; set; } // сам словарь 
+        public Dict() // простой конструктор
         {
-            D = new Dictionary <string, string> ();
-        }
-        public bool Load()
-        {
-            return false;
-        }
-        public bool Save()
-        {
-            return false;
+            core = new Dictionary <string, string> ();
         }
     }
 }
