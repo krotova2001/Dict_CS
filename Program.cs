@@ -14,9 +14,6 @@ namespace Dict_CS
         {
             Dictionary<string, string> D_rus_eng = new Dictionary<string, string>(); //русско - английский словарь
             Dictionary<string, string> D_eng_deuch = new Dictionary<string, string>(); //англо-немецкий словарь
-            
-
-
         }
         bool Dict_Load() // функция загрузки словаря
         {
