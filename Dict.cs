@@ -17,5 +17,6 @@ namespace Dict_CS
         {
             core = new Dictionary <string, string> ();
         }
+     
     }
 }

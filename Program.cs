@@ -18,27 +18,71 @@ namespace Dict_CS
                 Console.WriteLine($"{key} - {A.core[key]}"); // перебрать все ключи и значения в словаре
             }
         }
-        
         static void Main(string[] args)
         {
-            Dict R_A = new Dict(); //русско - английский словарь
+            //на страте создадим сразу два словаря
+            Dict R_A; //русско - английский словарь
             Dict A_D; //англо-немецкий словарь
-            R_A.core.Add("Один", "One");
-            R_A.core.Add("Два", "Two");
+            //загрузим словари из файла при старте программмы
+            string buff = File.ReadAllText("R_A.json");
+            string buff2 = File.ReadAllText("A_D.json");
+            R_A = JsonSerializer.Deserialize<Dict>(buff);
+            A_D = JsonSerializer.Deserialize<Dict>(buff2);
 
+            Console.WriteLine("ПРОГРАММА - СЛОВАРИ");
+            Console.WriteLine();
+            Console.WriteLine();
 
-
-            using (FileStream fs = new FileStream("D.json", FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            Visual Menu = new Visual();
+            int choise = 1000;
+            do
             {
-                JsonSerializer.Serialize(fs, R_A);
+                Console.Clear();
+                Menu.Show();// показываем меню
+                string input = Console.ReadLine(); // считывание выбора пользователя
+                choise = int.Parse(input);
+                switch (choise)
+                {
+                    case 1:
+                            Menu.Show_1();
+                            string input2 = Console.ReadLine(); // считывание выбора пользователя
+                            int choise2 = int.Parse(input);
+                            switch (choise2)
+                            {
+                                case 1:
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                            case 0:
+                                break;
+                            }
+                        break;
+
+                    case 2:
+                        Menu.Show_1();
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        Menu.Show_1();
+                        break;
+                    case 0:
+                        using (FileStream fs = new FileStream("R_A.json", FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                        {
+                            JsonSerializer.Serialize(fs, R_A);
+                        }
+                        using (FileStream fs = new FileStream("A_D.json", FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                        {
+                            JsonSerializer.Serialize(fs, A_D);
+                        }
+                        break;
+                }
             }
-           
-            string buff = File.ReadAllText("D.json");
-            Dict A = JsonSerializer.Deserialize<Dict>(buff);
-            Show(A);
+            while (choise != 0);
 
             /*
-             
             string fileName = "WeatherForecast.json"; 
             string jsonString = JsonSerializer.Serialize(weatherForecast);
             File.WriteAllText(fileName, jsonString);
