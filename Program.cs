@@ -47,13 +47,62 @@ namespace Dict_CS
             else if (b.core.ContainsKey(word)) // если слово на английском
             {
                 Console.WriteLine(b.core[word]);
-                Console.WriteLine(a.core.Where(p => p.Value == word).Select(p => p.Key));
+                var word2 = a.core.Where(p => p.Value == word).Select(p => p.Key);
+                Console.WriteLine(word2.Last());
             }
             else if (b.core.ContainsValue(word)) // если слово на немецком
             {
                 var word2 = b.core.Where(p => p.Value == word).Select(p => p.Key);
-                Console.WriteLine(word2.DefaultIfEmpty());
-                //Console.WriteLine(b.core.Where(p => p.Value == word2.).Select(p => p.Key));
+                Console.WriteLine(word2.Last());
+                var word3 = a.core.Where(p => p.Value == word2.Last()).Select(p => p.Key);
+                Console.WriteLine(word3.Last());
+            }
+            else // если слова нигде нет
+                Console.WriteLine("Не могу найти");
+            Console.ReadLine();
+        }
+
+        static void Del(Dict a, Dict b)
+        {
+            Console.Clear();
+            Console.WriteLine("Введите слово");
+            string word = Console.ReadLine();
+            if (a.core.ContainsKey(word)) // если слово на русском
+            {
+                if(a.core.Remove(word) && b.core.Remove(a.core[word]))
+                {
+                    Console.WriteLine("Слово удалено");
+                }
+                else
+                {
+                    Console.WriteLine("Не могу удалить");
+                }
+
+            }
+            else if (b.core.ContainsKey(word)) // если слово на английском
+            {
+                var word2 = a.core.Where(p => p.Value == word).Select(p => p.Key);
+                if (b.core.Remove(word) && a.core.Remove(word2.Last()))
+                {
+                    Console.WriteLine("Слово удалено");
+                }
+                else
+                {
+                    Console.WriteLine("Не могу удалить");
+                }
+            }
+            else if (b.core.ContainsValue(word)) // если слово на немецком
+            {
+                var word2 = b.core.Where(p => p.Value == word).Select(p => p.Key);
+                var word3 = a.core.Where(p => p.Value == word2.Last()).Select(p => p.Key);
+               if (b.core.Remove(word2.Last()) && a.core.Remove(word3.Last()))
+                {
+                    Console.WriteLine("Слово удалено");
+                }
+                else
+                {
+                    Console.WriteLine("Не могу удалить");
+                }
             }
             else // если слова нигде нет
                 Console.WriteLine("Не могу найти");
@@ -108,20 +157,7 @@ namespace Dict_CS
                         Add(R_A, A_D);
                         break;
                     case 4:
-                        Menu.Show_1();
-                        input2 = Console.ReadLine(); // считывание выбора пользователя
-                        choise2 = int.Parse(input);
-                        switch (choise2)
-                        {
-                            case 1:
-                                break;
-                            case 2:
-                                break;
-                            case 3:
-                                break;
-                            case 0:
-                                break;
-                        }
+                        Del(R_A, A_D);
                         break;
                     case 0:
                         using (FileStream fs = new FileStream("R_A.json", FileMode.OpenOrCreate, FileAccess.ReadWrite))
