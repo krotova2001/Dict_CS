@@ -19,7 +19,6 @@ namespace Dict_CS
             }
             Console.ReadLine();
         }
-
         static void Add(Dict a, Dict b) // функция добавления в словарь
         {
             //считываем варианты слова в трех языках и добавляем их в словари
@@ -47,14 +46,14 @@ namespace Dict_CS
             else if (b.core.ContainsKey(word)) // если слово на английском
             {
                 Console.WriteLine(b.core[word]);
-                var word2 = a.core.Where(p => p.Value == word).Select(p => p.Key);
-                Console.WriteLine(word2.Last());
+                var word2 = a.core.Where(p => p.Value == word).Select(p => p.Key); // поиск ключа в словаре по значению через LINQ
+                Console.WriteLine(word2.Last()); // получаем набор с одним словом
             }
             else if (b.core.ContainsValue(word)) // если слово на немецком
             {
-                var word2 = b.core.Where(p => p.Value == word).Select(p => p.Key);
+                var word2 = b.core.Where(p => p.Value == word).Select(p => p.Key); // поиск ключа в словаре по значению через LINQ
                 Console.WriteLine(word2.Last());
-                var word3 = a.core.Where(p => p.Value == word2.Last()).Select(p => p.Key);
+                var word3 = a.core.Where(p => p.Value == word2.Last()).Select(p => p.Key); // поиск ключа в словаре по значению через LINQ
                 Console.WriteLine(word3.Last());
             }
             else // если слова нигде нет
@@ -62,7 +61,7 @@ namespace Dict_CS
             Console.ReadLine();
         }
 
-        static void Del(Dict a, Dict b)
+        static void Del(Dict a, Dict b) // почти та же функция поиска, только удаляет слова
         {
             Console.Clear();
             Console.WriteLine("Введите слово");
@@ -77,7 +76,6 @@ namespace Dict_CS
                 {
                     Console.WriteLine("Не могу удалить");
                 }
-
             }
             else if (b.core.ContainsKey(word)) // если слово на английском
             {
@@ -149,17 +147,17 @@ namespace Dict_CS
                                 break;
                             }
                         break;
-
-                    case 2:
+                    case 2:  // поиск слова
                            Search(R_A, A_D);
                         break;
-                    case 3:
+                    case 3: // добавление слова
                         Add(R_A, A_D);
                         break;
-                    case 4:
+                    case 4: // удаление слова
                         Del(R_A, A_D);
                         break;
                     case 0:
+                        //экспорт словарей
                         using (FileStream fs = new FileStream("R_A.json", FileMode.OpenOrCreate, FileAccess.ReadWrite))
                         {
                             JsonSerializer.Serialize(fs, R_A);
@@ -172,9 +170,8 @@ namespace Dict_CS
                 }
             }
             while (choise != 0);
-
-
             /*
+             этот варинат оставим из справки MSDN
             string fileName = "WeatherForecast.json"; 
             string jsonString = JsonSerializer.Serialize(weatherForecast);
             File.WriteAllText(fileName, jsonString);
