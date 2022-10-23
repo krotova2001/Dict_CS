@@ -156,11 +156,13 @@ namespace Dict_CS
                         break;
                     case 0:
                         //экспорт словарей
-                        using (FileStream fs = new FileStream("R_A.json", FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                        File.Delete("R_A.json"); // для верности удалим старые словари
+                        File.Delete("A_D.json");
+                        using (FileStream fs = new FileStream("R_A.json", FileMode.Create, FileAccess.ReadWrite))
                         {
                             JsonSerializer.Serialize(fs, R_A);
                         }
-                        using (FileStream fs = new FileStream("A_D.json", FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                        using (FileStream fs = new FileStream("A_D.json", FileMode.Create, FileAccess.ReadWrite))
                         {
                             JsonSerializer.Serialize(fs, A_D);
                         }
