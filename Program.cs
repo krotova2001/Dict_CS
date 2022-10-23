@@ -32,7 +32,6 @@ namespace Dict_CS
             a.core.Add(rus, eng);
             b.core.Add(eng, deu);
         }
-
         static void Search(Dict a, Dict b)
         {
             Console.Clear();
@@ -60,7 +59,6 @@ namespace Dict_CS
                 Console.WriteLine("Не могу найти");
             Console.ReadLine();
         }
-
         static void Del(Dict a, Dict b) // почти та же функция поиска, только удаляет слова
         {
             Console.Clear();
@@ -68,7 +66,8 @@ namespace Dict_CS
             string word = Console.ReadLine();
             if (a.core.ContainsKey(word)) // если слово на русском
             {
-                if(a.core.Remove(word) && b.core.Remove(a.core[word]))
+                string temp = a.core[word];
+                if (a.core.Remove(word) && b.core.Remove(temp))
                 {
                     Console.WriteLine("Слово удалено");
                 }
@@ -82,7 +81,7 @@ namespace Dict_CS
                 var word2 = a.core.Where(p => p.Value == word).Select(p => p.Key);
                 if (b.core.Remove(word) && a.core.Remove(word2.Last()))
                 {
-                    Console.WriteLine("Слово удалено");
+                    Console.WriteLine("Слово удалено. Нажмите Enter");
                 }
                 else
                 {
@@ -95,7 +94,7 @@ namespace Dict_CS
                 var word3 = a.core.Where(p => p.Value == word2.Last()).Select(p => p.Key);
                if (b.core.Remove(word2.Last()) && a.core.Remove(word3.Last()))
                 {
-                    Console.WriteLine("Слово удалено");
+                    Console.WriteLine("Слово удалено. Нажмите Enter");
                 }
                 else
                 {
@@ -108,21 +107,20 @@ namespace Dict_CS
         }
         static void Main(string[] args)
         {
+            Print.Phrase("СЛОВАРЬ");
+            Print.Clear(1.5);
             //на страте создадим сразу два словаря
             Dict R_A; //русско - английский словарь
             Dict A_D; //англо-немецкий словарь
+
             //загрузим словари из файла при старте программмы
             string buff = File.ReadAllText("R_A.json");
             string buff2 = File.ReadAllText("A_D.json");
             R_A = JsonSerializer.Deserialize<Dict>(buff);
             A_D = JsonSerializer.Deserialize<Dict>(buff2);
 
-            Console.WriteLine("ПРОГРАММА - СЛОВАРИ");
-            Console.WriteLine();
-            Console.WriteLine();
-
-            Visual Menu = new Visual();
-            int choise = 1000;
+            Visual Menu = new Visual(); // создаем экземпляр отображения меню
+            int choise = 1000; // любое, кроме ноля, чтоб  программа не завершивалсь
             do
             {
                 Console.Clear();
@@ -170,6 +168,9 @@ namespace Dict_CS
                 }
             }
             while (choise != 0);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Print.Phrase("♥");
+            Print.Clear(1.5);
             /*
              этот варинат оставим из справки MSDN
             string fileName = "WeatherForecast.json"; 
