@@ -23,5 +23,6 @@ namespace Dict_CS
             Console.WriteLine("Deutch - 3");
             Console.WriteLine("Назад - 0");
         }
+       
     }
 }
