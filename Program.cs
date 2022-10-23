@@ -43,7 +43,6 @@ namespace Dict_CS
             {
                 Console.WriteLine(a.core[word]);
                 Console.WriteLine(b.core[a.core[word]]);
-
             }
             else if (b.core.ContainsKey(word)) // если слово на английском
             {
